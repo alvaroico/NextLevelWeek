@@ -1,3 +1,6 @@
+-----
+Server
+--
 npm init -y
 
 npm install express
@@ -13,6 +16,9 @@ npx tsc --init
 
 npm install ts-node-dev -D
 
+npm install knex
+
 -----------------
 WEB
+--
 npx create-react-app web --template=typescript
