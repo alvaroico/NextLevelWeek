@@ -12,3 +12,7 @@ npm install typescript -D
 npx tsc --init
 
 npm install ts-node-dev -D
+
+-----------------
+WEB
+npx create-react-app web --template=typescript
