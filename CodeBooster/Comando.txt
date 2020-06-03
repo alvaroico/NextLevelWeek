@@ -24,6 +24,8 @@ npm install --global --production windows-build-tools
 
 npx knex migrate:latest --knexfile knexfile.ts
 
+npm install cors
+
 -----------------
 WEB
 --
