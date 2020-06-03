@@ -4,7 +4,7 @@ import path from 'path'
 import routes from './routes'
 
 const app = express();
-
+// cors add url que pode utilizar a aplicação
 app.use(cors());
 app.use(express.json());
 app.use(routes);
