@@ -19,5 +19,6 @@ export async function up(knex: Knex) {
 
 export async function down(knex: Knex) {
     // VOLTAR ATRAS (DELETAR A TABELA)
+    // acho que falta S
     return knex.schema.dropTable('point');
 }
