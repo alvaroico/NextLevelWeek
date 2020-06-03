@@ -19,6 +19,8 @@ npm install ts-node-dev -D
 npm install knex
 
 npm install sqlite3
+se tiver erro na instalação utiliza o comando antes 
+npm install --global --production windows-build-tools
 
 npx knex migrate:latest --knexfile knexfile.ts
 

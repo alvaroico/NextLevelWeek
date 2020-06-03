@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node src/server.ts"
+    "dev": "ts-node src/server.ts",
+    "knrx:migrate": "npx knex migrate:latest --knexfile knexfile.ts"
   },
   "keywords": [],
   "author": "",
