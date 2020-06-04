@@ -18,13 +18,14 @@ import api from '../../services/api';
 
   interface IBGEUFResponse {
     sigla: string;
-    //nome: string;
+    nome: string;
   }
 
   
   const CreatePoint = () => {
   const [items, setItems] = useState<Item[]>([]);
-  const [ufs, setUfs ] = useState<string[]>([]);
+  const [ufs, setUfs ] = useState<IBGEUFResponse[]>([]);
+  
 
   //tudo aqui dentro executa uma vez
   useEffect(() => {
@@ -35,12 +36,15 @@ import api from '../../services/api';
   
   useEffect(() => {
     axios.get<IBGEUFResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados').then(response => {
-      const ufInitials = response.data.map(uf => uf.sigla);
+      const ufInitials = response.data.map(uf => uf);
       //const ufIName = response.data.map(uf => uf.nome);
       setUfs(ufInitials)
     });
   }, []);
 
+  useEffect(() => {
+
+  }, []);
 
 
 
@@ -108,7 +112,7 @@ import api from '../../services/api';
                   <select name="uf" id="uf">
                     <option value="0">Selecione uma UF</option>
                     {ufs.map(uf => (
-                      <option key={uf} value={uf}>{uf}</option>
+                      <option key={uf.sigla} value={uf.sigla}>{uf.nome}</option>
                     ))}
                   </select>
                 </div>
