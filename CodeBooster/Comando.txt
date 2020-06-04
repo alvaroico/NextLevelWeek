@@ -35,3 +35,5 @@ npx create-react-app web --template=typescript
 adicionar comando de auto complet html 
 "emmet.syntaxProfiles": {"javascript": "jsx"},
     "emmet.includeLanguages": {"javascript": "javascriptreact"},
+
+npm install react-icons
