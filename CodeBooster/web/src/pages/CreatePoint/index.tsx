@@ -25,6 +25,8 @@ import api from '../../services/api';
   const CreatePoint = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [ufs, setUfs ] = useState<IBGEUFResponse[]>([]);
+
+  const [selectedUf, setSelectedUf] = useState('0');
   
 
   //tudo aqui dentro executa uma vez
@@ -43,9 +45,12 @@ import api from '../../services/api';
   }, []);
 
   useEffect(() => {
-
+    // carregar as cidades sempre que a UF mudar
   }, []);
 
+  function handleSelectUF() {
+    console.log('teste')
+  }
 
 
 
@@ -109,7 +114,7 @@ import api from '../../services/api';
               <div className="field-group">
                 <div className="field">
                   <label htmlFor="uf">Estado (UF</label>
-                  <select name="uf" id="uf">
+                  <select name="uf" id="uf" onChange={handleSelectUF}>
                     <option value="0">Selecione uma UF</option>
                     {ufs.map(uf => (
                       <option key={uf.sigla} value={uf.sigla}>{uf.nome}</option>
