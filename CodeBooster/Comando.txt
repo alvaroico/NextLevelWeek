@@ -31,3 +31,7 @@ npm install @types/cors -D
 WEB
 --
 npx create-react-app web --template=typescript
+
+adicionar comando de auto complet html 
+"emmet.syntaxProfiles": {"javascript": "jsx"},
+    "emmet.includeLanguages": {"javascript": "javascriptreact"},
