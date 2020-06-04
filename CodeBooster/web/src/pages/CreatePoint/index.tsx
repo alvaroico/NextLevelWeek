@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './styles.css'
 import logo from '../../assets/logo.svg'
 import { Link } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi'
 import { Map, TileLayer, Marker } from 'react-leaflet';
+import api from '../../services/api'
 
-const CreatePoint = () => {
+
+  // criando estados para a função
+  // sempre quando criar estado tem que informar o tipo do Array ou objeto manualmente
+  interface Item {
+    id: number;
+    title: string;
+    image_url: string;
+  }
+  
+  const CreatePoint = () => {
+  const [items, setItems] = useState<Item[]>([]);
+
+  //tudo aqui dentro executa uma vez
+  useEffect(() => {
+    api.get('items').then(Response => {
+      setItems(Response.data);
+    })
+  }, []);
   return (
     <div id="page-create-point">
       <header>
@@ -82,30 +100,12 @@ const CreatePoint = () => {
               <span>Selecione um ou mais ítens abaixo</span>
             </legend>
             <ul className="items-grid" >
-              <li>
-                <img src="http://localhost:3333/uploads/baterias.svg" alt="baterias"/>
-                <span>Baterias</span>
+              {items.map(item => (
+                <li key={item.id}>
+                <img src={item.image_url} alt={item.title}/>
+                <span>{item.title}</span>
               </li>
-              <li className="selected" >
-                <img src="http://localhost:3333/uploads/baterias.svg" alt="baterias"/>
-                <span>Baterias</span>
-              </li>
-              <li>
-                <img src="http://localhost:3333/uploads/baterias.svg" alt="baterias"/>
-                <span>Baterias</span>
-              </li>
-              <li className="selected" >
-                <img src="http://localhost:3333/uploads/baterias.svg" alt="baterias"/>
-                <span>Baterias</span>
-              </li>
-              <li>
-                <img src="http://localhost:3333/uploads/baterias.svg" alt="baterias"/>
-                <span>Baterias</span>
-              </li>
-              <li>
-                <img src="http://localhost:3333/uploads/baterias.svg" alt="baterias"/>
-                <span>Baterias</span>
-              </li>
+              ))}
             </ul>
           </fieldset>
           <button type="submit">
