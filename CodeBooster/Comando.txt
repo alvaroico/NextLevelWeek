@@ -37,3 +37,7 @@ adicionar comando de auto complet html
     "emmet.includeLanguages": {"javascript": "javascriptreact"},
 
 npm install react-icons
+
+npm install react-router-dom
+
+npm install @types/react-router-dom -D
