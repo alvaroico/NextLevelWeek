@@ -1,4 +1,5 @@
 import React from 'react';
+import { FiLogIn } from 'react-icons/fi'
 
 import './styles.css';
 import logo from '../../assets/logo.svg';
@@ -18,7 +19,7 @@ const home = () => {
 
           <a href="/cadastro">
             <span>
-              >
+              <FiLogIn />
             </span>
             <strong>
             Pesquisar pontos de coleta
