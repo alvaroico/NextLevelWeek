@@ -1,7 +1,7 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent} from 'react';
 import './styles.css'
 import logo from '../../assets/logo.svg'
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi'
 import { Map, TileLayer, Marker } from 'react-leaflet';
 import axios from 'axios';
@@ -46,6 +46,7 @@ import api from '../../services/api';
   const [selectedItems, setselectedItems] = useState<number[]>([]);
   const [selectedPosition, setselectedPosition] = useState<[number, number]>([0,0]);
   
+  const history = useHistory();
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(position => {
@@ -134,7 +135,7 @@ import api from '../../services/api';
     await api.post('points', data);
     
     alert('Ponto de coleta Criado!');
-
+    history.push('/');
   }
 
 
