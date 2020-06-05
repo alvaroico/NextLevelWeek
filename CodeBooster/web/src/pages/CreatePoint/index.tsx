@@ -31,7 +31,9 @@ import api from '../../services/api';
   const [items, setItems] = useState<Item[]>([]);
   const [ufs, setUfs ] = useState<IBGEUFResponse[]>([]);
   const [cities, setCities] = useState<IBGECityResponse[]>([]);
+
   const [selectedUf, setSelectedUf] = useState('0')
+  const [selectedCity , setSelectedCity] = useState('0')
   
 
   //tudo aqui dentro executa uma vez
@@ -64,6 +66,10 @@ import api from '../../services/api';
   function handleSelectUF(event: ChangeEvent<HTMLSelectElement>) {
     const uf = event.target.value;
     setSelectedUf(uf.toString());
+  }
+  function handleSelectCity(event: ChangeEvent<HTMLSelectElement>) {
+    const city = event.target.value;
+    setSelectedCity(city.toString());
   }
 
 
@@ -137,7 +143,7 @@ import api from '../../services/api';
                 </div>
                 <div className="field">
                   <label htmlFor="city">Cidade</label>
-                  <select name="city" id="city">
+                  <select name="city" id="city" value={selectedCity} onChange={handleSelectCity}>
                     <option value="0">Selecione uma cidade</option>
                     {cities.map(city => (
                       <option key={city.id} value={city.nome}>{city.nome}</option>
