@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, ChangeEvent} from 'react';
 import './styles.css'
 import logo from '../../assets/logo.svg'
 import { Link } from 'react-router-dom';
@@ -20,13 +20,18 @@ import api from '../../services/api';
     sigla: string;
     nome: string;
   }
+  interface IBGECityResponse {
+    id: number;
+    nome: string;
+  }
+
 
   
   const CreatePoint = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [ufs, setUfs ] = useState<IBGEUFResponse[]>([]);
-
-  const [selectedUf, setSelectedUf] = useState('0');
+  const [cities, setCities] = useState<IBGECityResponse[]>([]);
+  const [selectedUf, setSelectedUf] = useState('0')
   
 
   //tudo aqui dentro executa uma vez
@@ -46,10 +51,19 @@ import api from '../../services/api';
 
   useEffect(() => {
     // carregar as cidades sempre que a UF mudar
-  }, []);
+    if (selectedUf === '0'){
+      return;
+    }
+    axios.get<IBGECityResponse[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios`).then(response => {
+      const cityNames = response.data.map(city => city);
+      
+      setCities(cityNames);
+    });
+  }, [selectedUf]);
 
-  function handleSelectUF() {
-    console.log('teste')
+  function handleSelectUF(event: ChangeEvent<HTMLSelectElement>) {
+    const uf = event.target.value;
+    setSelectedUf(uf.toString());
   }
 
 
@@ -113,8 +127,8 @@ import api from '../../services/api';
             </Map>
               <div className="field-group">
                 <div className="field">
-                  <label htmlFor="uf">Estado (UF</label>
-                  <select name="uf" id="uf" onChange={handleSelectUF}>
+                  <label htmlFor="uf">Estado (UF)</label>
+                  <select name="uf" id="uf" value={selectedUf} onChange={handleSelectUF}>
                     <option value="0">Selecione uma UF</option>
                     {ufs.map(uf => (
                       <option key={uf.sigla} value={uf.sigla}>{uf.nome}</option>
@@ -125,7 +139,9 @@ import api from '../../services/api';
                   <label htmlFor="city">Cidade</label>
                   <select name="city" id="city">
                     <option value="0">Selecione uma cidade</option>
-                   
+                    {cities.map(city => (
+                      <option key={city.id} value={city.nome}>{city.nome}</option>
+                    ))}
                   </select>
                 </div>
               </div>
