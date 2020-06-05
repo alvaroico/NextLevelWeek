@@ -35,9 +35,15 @@ import api from '../../services/api';
 
   const [initialPosition, setinitialPosition] = useState<[number, number]>([0,0]);
 
+  const [formData, setformData] = useState({
+    name: '',
+    email: '',
+    whatsapp: '',
+  });
 
   const [selectedUf, setSelectedUf] = useState('0');
   const [selectedCity , setSelectedCity] = useState('0');
+  const [selectedItems, setselectedItems] = useState<number[]>([]);
   const [selectedPosition, setselectedPosition] = useState<[number, number]>([0,0]);
   
 
@@ -90,6 +96,21 @@ import api from '../../services/api';
       event.latlng.lng,
     ])
   }
+  function handleImputChange(event: ChangeEvent<HTMLInputElement>){
+      const { name, value } = event.target
+
+      setformData({ ...formData, [name]: value })
+  }
+  function handleSelectItem(id: number){
+    const alreadySelected = selectedItems.findIndex(item => item === id);
+
+    if (alreadySelected >= 0 ){
+      const filteredItems = selectedItems.filter(item => item !== id);
+      setselectedItems(filteredItems);
+    } else {
+     setselectedItems([...selectedItems, id]);
+    }
+  }
 
 
 
@@ -116,6 +137,7 @@ import api from '../../services/api';
                   type="text" 
                   name="name" 
                   id="name"
+                  onChange={handleImputChange}
                 />
             </div>
             <div className="field-group">
@@ -125,6 +147,7 @@ import api from '../../services/api';
                   type="email" 
                   name="email" 
                   id="email"
+                  onChange={handleImputChange}
                 />
             </div>
             <div className="field">
@@ -133,6 +156,7 @@ import api from '../../services/api';
                   type="text" 
                   name="Whatsapp" 
                   id="Whatsapp"
+                  onChange={handleImputChange}
                 />
             </div>
             </div>
@@ -178,7 +202,7 @@ import api from '../../services/api';
             </legend>
             <ul className="items-grid" >
               {items.map(item => (
-                <li key={item.id}>
+                <li key={item.id} onClick={() => handleSelectItem(item.id)} className={selectedItems.includes(item.id) ? 'selected' : ''} >
                 <img src={item.image_url} alt={item.title}/>
                 <span>{item.title}</span>
               </li>
