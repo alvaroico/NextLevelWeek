@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ChangeEvent} from 'react';
+import React, { useEffect, useState, ChangeEvent, FormEvent} from 'react';
 import './styles.css'
 import logo from '../../assets/logo.svg'
 import { Link } from 'react-router-dom';
@@ -98,18 +98,46 @@ import api from '../../services/api';
   }
   function handleImputChange(event: ChangeEvent<HTMLInputElement>){
       const { name, value } = event.target
+      console.log(name, value)
 
       setformData({ ...formData, [name]: value })
   }
   function handleSelectItem(id: number){
     const alreadySelected = selectedItems.findIndex(item => item === id);
-
+    
     if (alreadySelected >= 0 ){
       const filteredItems = selectedItems.filter(item => item !== id);
       setselectedItems(filteredItems);
     } else {
      setselectedItems([...selectedItems, id]);
     }
+  }
+
+  /*async*/ function handleSubmit(event: FormEvent){
+    //mantem o submit mesma tela
+    event.preventDefault();
+    const { name, email, whatsapp } = formData;
+    const uf = selectedUf;
+    const city = selectedCity;
+    const [ latitude, longitude] = selectedPosition;
+    const items = selectedItems;
+
+    const data = {
+      name, 
+      email, 
+      whatsapp,
+      uf,
+      city,
+      latitude,
+      longitude,
+      items,
+    };
+    //await api.post('points', data);
+    console.log(data);
+    
+    
+    alert('Ponto de coleta Criado!');
+
   }
 
 
@@ -125,7 +153,7 @@ import api from '../../services/api';
           Voltar para home 
         </Link>
       </header>
-        <form action="">
+        <form onSubmit={handleSubmit} >
           <h1>Cadastro do<br/> ponto de coleta</h1>
           <fieldset>
             <legend>
