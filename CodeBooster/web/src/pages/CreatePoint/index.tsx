@@ -98,7 +98,6 @@ import api from '../../services/api';
   }
   function handleImputChange(event: ChangeEvent<HTMLInputElement>){
       const { name, value } = event.target
-      console.log(name, value)
 
       setformData({ ...formData, [name]: value })
   }
@@ -113,7 +112,7 @@ import api from '../../services/api';
     }
   }
 
-  /*async*/ function handleSubmit(event: FormEvent){
+  async function handleSubmit(event: FormEvent){
     //mantem o submit mesma tela
     event.preventDefault();
     const { name, email, whatsapp } = formData;
@@ -132,9 +131,7 @@ import api from '../../services/api';
       longitude,
       items,
     };
-    //await api.post('points', data);
-    console.log(data);
-    
+    await api.post('points', data);
     
     alert('Ponto de coleta Criado!');
 
@@ -179,11 +176,11 @@ import api from '../../services/api';
                 />
             </div>
             <div className="field">
-              <label htmlFor="Whatsapp">Whatsapp</label>
+              <label htmlFor="whatsapp">Whatsapp</label>
                 <input 
                   type="text" 
-                  name="Whatsapp" 
-                  id="Whatsapp"
+                  name="whatsapp" 
+                  id="whatsapp"
                   onChange={handleImputChange}
                 />
             </div>
