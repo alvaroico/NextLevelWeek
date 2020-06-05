@@ -10,7 +10,7 @@ const Points = () => {
 
   const navigation = useNavigation();
 
-  function handleNavigateBack(){
+  function handleNavigateBack(){ 
     navigation.goBack();
   }
   function handleNavigateToDetail(){
