@@ -48,3 +48,9 @@ https://leafletjs.com/
 npm install @types/react-leaflet -D
 
 npm install axios
+
+----------
+APP Celular
+--
+ npm install -g expo-cli
+ expo init mobile
