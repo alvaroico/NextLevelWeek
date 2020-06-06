@@ -69,3 +69,5 @@ https://reactnavigation.org/docs/getting-started
 expo install react-native-svg
 
 npm install axios
+
+expo install expo-location
