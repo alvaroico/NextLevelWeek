@@ -31,6 +31,10 @@ npm install multer
 
 npm install @types/multer -D
 
+npm install colebrate
+
+npm install @types/hapi__joi
+
 -----------------
 WEB
 --
