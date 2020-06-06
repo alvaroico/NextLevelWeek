@@ -9,6 +9,7 @@ import {LeafletMouseEvent} from 'leaflet';
 import api from '../../services/api';
 
 
+
   // criando estados para a função
   // sempre quando criar estado tem que informar o tipo do Array ou objeto manualmente
   interface Item {

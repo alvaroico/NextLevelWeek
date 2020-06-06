@@ -27,6 +27,10 @@ npx knex migrate:latest --knexfile knexfile.ts
 npm install cors
 npm install @types/cors -D
 
+npm install multer
+
+npm install @types/multer -D
+
 -----------------
 WEB
 --
@@ -48,6 +52,8 @@ https://leafletjs.com/
 npm install @types/react-leaflet -D
 
 npm install axios
+
+npm install react-dropzone
 
 ----------
 APP Celular
