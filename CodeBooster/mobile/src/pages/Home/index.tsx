@@ -80,17 +80,7 @@ const Home = () => {
             onValueChange={(text) => setUf(text)}
           />
           </View>
-     {/* 
-      <TextInput 
-        style={styles.input}
-        placeholder="Digite a UF"
-        value={uf}
-        maxLength={2}
-        autoCapitalize="characters"
-        autoCorrect={false}
-        onChangeText={ text => setUf(text)}
-
-      />*/}
+    
       <TextInput 
         style={styles.input}
         placeholder="Digite a Cidade"
