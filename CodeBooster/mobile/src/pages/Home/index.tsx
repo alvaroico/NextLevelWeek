@@ -14,21 +14,6 @@ const Home = () => {
   const [city, setcity] = useState('');
 
   const navigation = useNavigation();
-
-  const sports = [
-    {
-      label: 'Football',
-      value: 'football',
-    },
-    {
-      label: 'Baseball',
-      value: 'baseball',
-    },
-    {
-      label: 'Hockey',
-      value: 'hockey',
-    },
-  ];
  
     const placeholder = {
       label: 'Selecione a UF',
@@ -65,13 +50,14 @@ const Home = () => {
       });
 
       //const ufIName = response.data.map(uf => uf.nome);
-      console.log(uf)
       setUfs(ufInitials)
+      
     });
   }, []);
   
 
     return (
+      
 <KeyboardAvoidingView style={{ flex: 1}} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
 
     <ImageBackground 
@@ -91,9 +77,10 @@ const Home = () => {
       <RNPickerSelect
             placeholder={placeholder}
             items={ufs}
-            onValueChange={(value) => console.log(value)}
+            onValueChange={(text) => setUf(text)}
           />
           </View>
+     {/* 
       <TextInput 
         style={styles.input}
         placeholder="Digite a UF"
@@ -103,7 +90,7 @@ const Home = () => {
         autoCorrect={false}
         onChangeText={ text => setUf(text)}
 
-      />
+      />*/}
       <TextInput 
         style={styles.input}
         placeholder="Digite a Cidade"
