@@ -1,14 +1,43 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Feather as Icon } from "@expo/vector-icons";
 import { View, ImageBackground, Image, StyleSheet, Text, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import { useNavigation } from "@react-navigation/native";
+import RNPickerSelect from 'react-native-picker-select';
+import axios from 'axios';
 
 const Home = () => {
   const [uf, setUf] = useState('');
+
+  const [ufs, setUfs ] = useState<IBGEUFResponser[]>([]);
+
   const [city, setcity] = useState('');
 
   const navigation = useNavigation();
+
+  const sports = [
+    {
+      label: 'Football',
+      value: 'football',
+    },
+    {
+      label: 'Baseball',
+      value: 'baseball',
+    },
+    {
+      label: 'Hockey',
+      value: 'hockey',
+    },
+  ];
+ 
+    const placeholder = {
+      label: 'Selecione a UF',
+      value: '',
+      color: '#000',
+    };
+
+
+
 
   function handleNavigateToPoinst(){
     navigation.navigate('Points',{
@@ -17,6 +46,30 @@ const Home = () => {
     })
   }
 
+  interface IBGEUFResponse {
+    sigla: string;
+    nome: string;
+  }
+  interface IBGEUFResponser {
+    label: string;
+    value: string;
+  }
+
+  useEffect(() => {
+    axios.get<IBGEUFResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados').then(response => {
+      const ufInitials = response.data.map(uf => {
+        return {
+          label: uf.nome,
+          value: uf.sigla
+        };
+      });
+
+      //const ufIName = response.data.map(uf => uf.nome);
+      console.log(uf)
+      setUfs(ufInitials)
+    });
+  }, []);
+  
 
     return (
 <KeyboardAvoidingView style={{ flex: 1}} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
@@ -34,6 +87,13 @@ const Home = () => {
       </View>
       </View>
       <View style={styles.footer}>
+        <View style={styles.input} >
+      <RNPickerSelect
+            placeholder={placeholder}
+            items={ufs}
+            onValueChange={(value) => console.log(value)}
+          />
+          </View>
       <TextInput 
         style={styles.input}
         placeholder="Digite a UF"
@@ -109,7 +169,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     borderRadius: 10,
     marginBottom: 8,
-    paddingHorizontal: 24,
+    paddingHorizontal: 8,
+    paddingVertical: 5,
     fontSize: 16,
   },
 
