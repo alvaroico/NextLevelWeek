@@ -72,7 +72,7 @@ npm run start
 
 ## License
 
-This project use MIT license, see the file [LICENSE](.github/LICENSE.md) for more details
+This project use MIT license, see the file [LICENSE](./LICENSE.md) for more details
 
 ---
 
