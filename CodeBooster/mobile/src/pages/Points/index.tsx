@@ -73,6 +73,9 @@ const Points = () => {
   }, []);
 
   useEffect(() => {
+    if (selectedItems[0] == null){
+      return ;
+    }
     api.get('points', {
       params:  {
         city: routeParams.city,

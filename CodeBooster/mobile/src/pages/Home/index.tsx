@@ -7,9 +7,11 @@ import RNPickerSelect from 'react-native-picker-select';
 import axios from 'axios';
 
 const Home = () => {
-  const [uf, setUf] = useState('');
+  const [uf, setUf] = useState('0');
 
   const [ufs, setUfs ] = useState<IBGEUFResponser[]>([]);
+  const [cities, setCities] = useState<IBGECityResponser[]>([]);
+
 
   const [city, setcity] = useState('');
 
@@ -17,7 +19,12 @@ const Home = () => {
  
     const placeholder = {
       label: 'Selecione a UF',
-      value: '',
+      value: '0',
+      color: '#000',
+    };
+    const placeholdercity = {
+      label: 'Selecione a Cidade',
+      value: '0',
       color: '#000',
     };
 
@@ -39,6 +46,14 @@ const Home = () => {
     label: string;
     value: string;
   }
+  interface IBGECityResponse {
+    id: number;
+    nome: string;
+  }
+  interface IBGECityResponser {
+    label: string;
+    value: string;
+  }
 
   useEffect(() => {
     axios.get<IBGEUFResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados').then(response => {
@@ -54,7 +69,22 @@ const Home = () => {
       
     });
   }, []);
-  
+
+  useEffect(() => {
+    // carregar as cidades sempre que a UF mudar
+    if (uf === '0'){
+      return;
+    }
+    axios.get<IBGECityResponse[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`).then(response => {
+      const cityNames = response.data.map(city => {
+        return {
+          label: city.nome,
+          value: city.nome
+        };
+      });
+      setCities(cityNames);
+    });
+  }, [uf]);
 
     return (
       
@@ -73,22 +103,22 @@ const Home = () => {
       </View>
       </View>
       <View style={styles.footer}>
-        <View style={styles.input} >
-      <RNPickerSelect
+      <View style={styles.input} >
+        <RNPickerSelect
             placeholder={placeholder}
             items={ufs}
             onValueChange={(text) => setUf(text)}
-          />
-          </View>
+         />
+      </View>
+      <View style={styles.input} >
+        <RNPickerSelect
+            placeholder={placeholdercity}
+            items={cities}
+            onValueChange={(text) => setcity(text)}
+        />
+      </View>
     
-      <TextInput 
-        style={styles.input}
-        placeholder="Digite a Cidade"
-        value={city}
-        autoCorrect={false}
-        onChangeText={ text => setcity(text)}
-
-      />
+      
 
 
 
