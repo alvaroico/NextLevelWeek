@@ -1,0 +1,14 @@
+{
+  "name": "NextLevelWeek",
+  "description": "Ecoleta is an application to connect people who want to find collection places for recycling batteries, electronics, lamps, among others in your city and region closest to you.",
+  "version": "0.0.1",
+  "license": "mit",
+  "author": "alvaroico",
+  "engines": {
+    "node": ">=10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git clone https://github.com/alvaroico/NextLevelWeek.git"
+  } 
+}
